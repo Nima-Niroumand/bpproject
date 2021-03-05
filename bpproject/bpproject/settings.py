@@ -31,9 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'execise',
-    'Video',
-    'submitedExercise',
+    'education',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
