@@ -39,10 +39,8 @@ def exerciseUpload(request):
             profiles = Profile.objects.all()
             print(profiles)
             for p in profiles:
-                print(5)
-                print(uu)
                 if (p.user == uu):
-                    ee.createBy = p
+                    ee.professor= p
                     print(6)
             print(7)
             ee.save()
