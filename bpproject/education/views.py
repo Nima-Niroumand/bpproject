@@ -31,27 +31,29 @@ def exerciseUpload(request):
 
         upload = ExerciseCreate(request.POST, request.FILES)
         if upload.is_valid():
-            print(1)
+
             ee = upload.save(commit=False)
-            print(2)
+
             uu = request.user
-            print(3)
+
             profiles = Profile.objects.all()
-            print(profiles)
+
             for p in profiles:
                 if (p.user == uu):
                     ee.professor= p
-                    print(6)
-            print(7)
+
+
             ee.save()
             return redirect('exerciseIndex')
         else:
-            print(8)
+
             return HttpResponse("""your form is wrong""")
     else:
 
             return render(request, 'exercise/upload.html', {'upload_form':upload})
-
+def videoIndex(request):
+    videos = Video.objects.all()
+    return render(request, "video/index.html",{"videos":videos})
 
 def VideoUpload(request):
     upload = VideoCreate()
@@ -63,11 +65,10 @@ def VideoUpload(request):
             profiles = Profile.objects.all()
             for p in profiles:
                 if (p.user == uu):
-                    ee.createBy = p
+                    ee.professor_video = p
             ee.save()
-            ee.save()
-            return redirect('VideoIndex')
+            return redirect('videoIndex')
         else:
             return HttpResponse("""your form is wrong""")
     else:
-        return render(request, 'Video/upload.html', {'upload_form': upload})
+        return render(request, 'video/upload.html', {'upload_form': upload})
