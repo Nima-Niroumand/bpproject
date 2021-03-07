@@ -6,6 +6,7 @@
 {% block content %}
 EXErCise :D, {{ user.username|default:'Guest' }}!
 <hr>
+{% if isStudent==True %}
 Available Exercises
 <table border="1">
 	tr><td>id</td><td><date/td><td>date</td><td>File</td></tr>
@@ -19,6 +20,7 @@ Available Exercises
 
 </tr>
 {% endfor %}
+</table>
 <table border="1">
 	<tr><td>id</td><td>student-number</td><td>File</td><td>score</td></tr>
 {% for se in submitedExercise %}
@@ -30,6 +32,24 @@ Available Exercises
 
 </tr>
 {% endfor %}
+{% endif %}
+{% if isStudent==False %}
+<table border="1">
+	tr><td>id</td><td><date/td><td>date</td><td>File</td></tr>
+{% for submietexercise in allsubmitexercise %}
+<tr>
+	<td>{{submietexercise.id}}</td>
+
+	<td>{{submietexercise.student.student_number}}</td>
+	<td><a href="../download/{{submietexercise.file}}">download file</a></td>
+	<td>{{submietexercise.score}}</td>
+	<td><a href="/submitExercise//{{exercise.id}}">Post Exercise</a></td>
+
+</tr>
+{% endfor %}
+</table>
+
+	{% endif %}
 
 
 {% endblock %}

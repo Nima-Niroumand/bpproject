@@ -22,6 +22,10 @@ def dashboard(request):
 
     return render(request, "users/dashboard.html", args)
 def exerciseIndex(request):
+    profile=selectUserProfile(request.user)
+    if profile.isStudent:
+        return redirect('accessdenied')
+
     exercises = Exercise.objects.all()
     return render(request, "exercise/index.html",{"exercises":exercises})
 def exerciseUpload(request):
@@ -63,8 +67,12 @@ def videoPlay(request, id):
 
     return render(request, "video/play.html", {"video": video})
 def VideoUpload(request):
-    upload = VideoCreate()
-    if request.method == 'POST':
+    profile = selectUserProfile(request.user)
+    if profile.isStudent:
+        return redirect('accessdenied')
+    else:
+     upload = VideoCreate()
+     if request.method == 'POST':
         upload = VideoCreate(request.POST, request.FILES)
         if upload.is_valid():
             ee = upload.save(commit=False)
@@ -77,7 +85,7 @@ def VideoUpload(request):
             return redirect('videoIndex')
         else:
             return HttpResponse("""your form is wrong""")
-    else:
+     else:
         return render(request, 'video/upload.html', {'upload_form': upload})
 
 
@@ -91,14 +99,14 @@ def downloadExerciseFiles(request, path):
 			response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
 			return response
 	raise Http404
-def submitedExerciseIndex(request):
-    s=  SubmitedExercise.objects.all()
-    return render(request, "submitExercise/index.html",{"submitExercises":s})
-def selectUserProfile:
+
+def selectUserProfile(user):
     profiles = Profile.objects.all()
     for p in profiles:
-        if (p.user == uu):
-            ee.student = p
+        if (p.user == user):
+            return p
+    return None
+
 def sendExercise(request, ExeId ):
     upload = submitExerciseCreate()
     exercise = get_object_or_404(Exercise, id=ExeId)
@@ -127,13 +135,19 @@ def sendExercise(request, ExeId ):
         return render(request, 'submitExercise/sendExercise.html', args)
 
 def submitExerciseIndex(request):
+     profile=selectUserProfile(request.user)
      exercises = Exercise.objects.all()
      submitedExercise = SubmitedExercise.objects.all()
+     studentExercise=[]
+     for i in  submitedExercise:
+         if i.student==profile :
+             studentExercise+=[i]
      print(submitedExercise[1])
      args = {}
-     args['submitedExercise']=submitedExercise;
-     args['exercises']=exercises;
-
+     args['submitedExercise']=studentExercise
+     args['exercises']=exercises
+     args['allsubmitexercise'] =submitedExercise
+     args['isStudent']=profile.isStudent
      return render(request, 'submitExercise/index.html', args)
 def downloadSubmitedExerciseFiles(request, path):
 	print(path)
@@ -145,3 +159,5 @@ def downloadSubmitedExerciseFiles(request, path):
 			response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
 			return response
 	raise Http404
+def accessdenied(request):
+    return render(request, 'users/accessDenied.html')
