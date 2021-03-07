@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from .models import Exercise,Profile,Video
 from .forms import ExerciseCreate ,VideoCreate
-from django.http import HttpResponse
+from django.http import HttpResponse ,Http404
 import os
 from django.conf import settings
 
@@ -72,3 +72,15 @@ def VideoUpload(request):
             return HttpResponse("""your form is wrong""")
     else:
         return render(request, 'video/upload.html', {'upload_form': upload})
+
+
+def downloadExerciseFiles(request, path):
+	print(path)
+	print(os.path.join(settings.MEDIA_ROOT,"exerciseFiles", path))
+	file_path = os.path.join(settings.MEDIA_ROOT,"exerciseFiles", path)
+	if os.path.exists(file_path):
+		with open(file_path, 'rb') as fh:
+			response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+			response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+			return response
+	raise Http404
