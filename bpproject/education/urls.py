@@ -9,5 +9,5 @@ urlpatterns = [
     url(r"^exercise/upload/",exerciseUpload,name="exerciseUpload"),
     url(r"^video/index/", videoIndex, name="videoIndex"),
     url(r"^video/upload/",VideoUpload,name="VideoUpload"),
-     path("download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
+       path("download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
         ]
