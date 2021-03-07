@@ -28,3 +28,4 @@ class SubmitedExercise(models.Model):
    score = models.DecimalField(decimal_places=2,max_digits=4,null=True,blank=True)
    id = models.AutoField(primary_key=True)
    file = models.FileField(upload_to='submitedExerciseFiles/')
+   date = models.DateTimeField(editable=True)

@@ -5,6 +5,7 @@ from django.http import HttpResponse ,Http404
 import os
 from django.conf import settings
 from django.shortcuts import get_list_or_404, get_object_or_404
+import datetime
 def dashboard(request):
     args = {}
 
@@ -121,15 +122,15 @@ def sendExercise(request, ExeId ):
                     ee.student = p
             ee.exercise  =exercise
             ee.score = -1
+            ee.date= datetime.datetime.now()
             ee.save()
             return redirect('submitExerciseIndex')
         else:
-            print(upload.errors)
             return HttpResponse("""your form is wrong""")
     else:
         args = {}
 
-        args['Id'] = id
+        args['Id'] = ExeId
         args['exercise'] = exercise
         args['upload_form'] = upload
         return render(request, 'submitExercise/sendExercise.html', args)
@@ -139,10 +140,11 @@ def submitExerciseIndex(request):
      exercises = Exercise.objects.all()
      submitedExercise = SubmitedExercise.objects.all()
      studentExercise=[]
-     for i in  submitedExercise:
-         if i.student==profile :
-             studentExercise+=[i]
-     print(submitedExercise[1])
+     if submitedExercise:
+      for i in  submitedExercise:
+          if i.student==profile :
+              studentExercise+=[i]
+
      args = {}
      args['submitedExercise']=studentExercise
      args['exercises']=exercises
