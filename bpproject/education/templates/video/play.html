@@ -1,0 +1,9 @@
+{% block content %}
+welcome {{ user.username|default:'Guest' }}! <br/>
+<video width="320" height="240" controls>
+  <source src="{{MEDIA_URL}}videos/{{video.videozename}}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+{% endblock %}

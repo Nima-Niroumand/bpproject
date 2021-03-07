@@ -8,13 +8,13 @@ Hello, {{ user.username|default:'Guest' }}!
 <div>
 	{% if isStudent == True %}
 		<H2>Student</H2>
-		<a href="/submitedexercise/index">submit Exercise</a><br/>
+		<a href="/submitExercise/index">submit Exercise</a><br/>
 		<a href="/Video/index">video</a><br/>
 	{% endif %}
 
 	{% if isStudent == False %}
 		<H2>Master</H2>
-		<a href="/submitedexercise/index">submited Exercises</a><br/>
+		<a href="/submitExercise/index">submited Exercises</a><br/>
 		<a href="/exercise/index">Exercise</a><br/>
 		<a href="/video/index">video</a><br/>
 	{% endif %}
