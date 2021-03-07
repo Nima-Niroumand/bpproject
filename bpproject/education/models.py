@@ -25,6 +25,6 @@ class Video(models.Model):
 class SubmitedExercise(models.Model):
    exercise=models.ForeignKey(Exercise,on_delete=models.CASCADE)
    student=models.ForeignKey(Profile,on_delete=models.CASCADE)
-   score=models.IntegerField()
+   score = models.DecimalField(decimal_places=2,max_digits=4,null=True,blank=True)
    id = models.AutoField(primary_key=True)
    file = models.FileField(upload_to='submitedExerciseFiles/')

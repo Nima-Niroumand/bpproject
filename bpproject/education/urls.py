@@ -9,10 +9,9 @@ urlpatterns = [
     url(r"^exercise/upload/",exerciseUpload,name="exerciseUpload"),
     url(r"^video/index/", videoIndex, name="videoIndex"),
     url(r"^video/upload/",VideoUpload,name="VideoUpload"),
-    url(r"^submitedexercise/sendExercise/",sendExercise,name="sendExercise"),
     path("exercise/download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
     path("video/play/<int:id>", videoPlay, name="videoPlay"),
     path("submitExercise/index/",submitExerciseIndex,name="submitExerciseIndex"),
-    path("submitExercise/sendExercise/",sendExercise,name="sendExercise"),
+    path("submitExercise/sendExercise/<int:ExeId>",sendExercise,name="sendExercise"),
     path("submitExercise/download/exerciseFiles/<str:path>", downloadExerciseFiles, name="downloadExerciseFiles"),
 ]

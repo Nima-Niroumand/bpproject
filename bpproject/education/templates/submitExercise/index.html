@@ -15,7 +15,7 @@ Available Exercises
 	<td>{{exercise.exersizename}}</td>
 	<td>{{exercise.detai}}</td>
 	<td><a href="../download/{{exercise.exercisefile}}">download file</a></td>
-	<td><a href="/submitedexercise/sendExercise/{{exercise.id}}">Post Exercise</a></td>
+	<td><a href="/submitExercise/sendExercise/{{exercise.id}}">Post Exercise</a></td>
 
 </tr>
 {% endfor %}
@@ -24,7 +24,7 @@ Available Exercises
 {% for se in submitedExercise %}
 <tr>
 	<td>{{se.id}}</td>
-	<td>{{se.studen.studnet_number}}</td>
+	<td>{{se.student.student_number}}</td>
 	<td><a href="../download/{{se.file}}">download file</a></td>
 	<td>{{se.score}}</td>
 

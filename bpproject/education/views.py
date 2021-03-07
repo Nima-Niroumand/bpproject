@@ -94,11 +94,14 @@ def downloadExerciseFiles(request, path):
 def submitedExerciseIndex(request):
     s=  SubmitedExercise.objects.all()
     return render(request, "submitExercise/index.html",{"submitExercises":s})
-
-
-def sendExercise(request, ExeId):
+def selectUserProfile:
+    profiles = Profile.objects.all()
+    for p in profiles:
+        if (p.user == uu):
+            ee.student = p
+def sendExercise(request, ExeId ):
     upload = submitExerciseCreate()
-    exe = get_object_or_404(Exercise, id=ExeId)
+    exercise = get_object_or_404(Exercise, id=ExeId)
     if request.method == 'POST':
         upload = submitExerciseCreate(request.POST, request.FILES)
         if upload.is_valid():
@@ -108,7 +111,7 @@ def sendExercise(request, ExeId):
             for p in profiles:
                 if (p.user == uu):
                     ee.student = p
-            ee.file  = exe
+            ee.exercise  =exercise
             ee.score = -1
             ee.save()
             return redirect('submitExerciseIndex')
@@ -118,15 +121,15 @@ def sendExercise(request, ExeId):
     else:
         args = {}
 
-        args['ExeId'] = ExeId
-        args['file'] = file
+        args['Id'] = id
+        args['exercise'] = exercise
         args['upload_form'] = upload
         return render(request, 'submitExercise/sendExercise.html', args)
 
 def submitExerciseIndex(request):
      exercises = Exercise.objects.all()
      submitedExercise = SubmitedExercise.objects.all()
-
+     print(submitedExercise[1])
      args = {}
      args['submitedExercise']=submitedExercise;
      args['exercises']=exercises;
