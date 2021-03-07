@@ -1,0 +1,34 @@
+<!-- exercise index-->
+
+
+
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+welcome {{ user.username|default:'Guest' }}! <br/>
+
+Recent Exercises
+<table border="1">
+	<tr><td>id</td><td>exersizename</td><td>detai</td><td>File</td></tr>
+{% for exercise in exercises %}
+<tr>
+	<td>{{exercise.id}}</td>
+	<td>{{exercise.exersizename}}</td>
+	<td>{{exercise.detai}}</td>
+	<!--<td><a href="../media/{{exercise.exFile}}">download file</a></td>-->
+	<td><a href="../download/{{exercise.exercisefile}}">download file</a></td>
+
+
+</tr>.
+{% endfor %}
+</table>
+
+
+<hr/>
+<a href="/exercise/upload"> Post new exercise</a>
+
+
+{% endblock %}

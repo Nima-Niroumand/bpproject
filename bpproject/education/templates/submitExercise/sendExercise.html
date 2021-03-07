@@ -1,0 +1,28 @@
+<h2> sendExercise </h2>
+{{id}}
+
+ID:{{exercise.id}}<br/>
+Name:{{exe.name}}<br/>
+Date:{{exercise.date}}
+
+<hr>
+Send here :
+
+<form method = 'POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <table >
+
+            <tr>
+                <th>exercisefile</th>
+                <td><input type="file" name="file" required id="id_file"></td>
+            </tr>
+
+
+
+
+
+        </table>
+        <button type="submit" class="btn btn-lg btn-warning">Submit</button>
+    </form>
+<hr/>
+
